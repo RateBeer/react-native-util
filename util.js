@@ -1,5 +1,19 @@
 'use strict';
 
+exports._extend = Object.assign
+
+exports.inherits = function(ctor, superCtor) {
+  ctor.super_ = superCtor;
+  ctor.prototype = Object.create(superCtor.prototype, {
+    constructor: {
+      value: ctor,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+};
+
 const formatRegExp = /%[sdj%]/g;
 exports.format = function(f) {
   if (typeof f !== 'string') {
